@@ -37,35 +37,32 @@ int32_t main() {
 	cin >> n;
 	if ((n * (n + 1) / 2) % 2 != 0) cout << "NO\n";
 	else {
-		stack<int> s1, s2;
-		int flag = 1;
-		s1.push(n);
-		for (int i = n - 1; i >= 1; i -= 2) {
+		vi a, b;
+		bool flag = 1;
+		a.pb(n);
+		while (n > 1) {
 			if (flag) {
-				s2.push(i);
-				if (i - 1 >= 1)
-					s2.push(i - 1);
+				b.pb(--n);
+				if (n <= 1) break;
+				b.pb(--n);
 				flag = 0;
 			}
 			else {
-				s1.push(i);
-				if (i - 1 >= 1)
-					s1.push(i - 1);
+				if (n <= 1) break;
+				a.pb(--n);
+				if (n <= 1) break;
+				a.pb(--n);
 				flag = 1;
 			}
 		}
+
+
 		cout << "YES\n";
-		cout << sz(s1) << "\n";
-		while (!s1.empty()) {
-			cout << s1.top() << " ";
-			s1.pop();
-		}
+		cout << sz(a) << "\n";
+		for (auto x : a) cout << x << " ";
 		cout << "\n";
-		cout << sz(s2) << "\n";
-		while (!s2.empty()) {
-			cout << s2.top() << " ";
-			s2.pop();
-		}
+		cout << sz(b) << "\n";
+		for (auto x : b) cout << x << " ";
 		cout << "\n";
 	}
 

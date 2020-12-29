@@ -39,26 +39,12 @@ int32_t main() {
 	vi a(n);
 	rep(i, 0, n) cin >> a[i];
 	sort(all(a));
-	unordered_map<int, int> fre;
 
-	for (auto x : a) fre[x]++;
+	int mid = n / 2, total = 0;
 
-	int mx = 0, num = 0;
+	rep(i, 0, n) total += abs(a[i] - a[mid]);
 
-	for (auto x : fre) {
-		if (x.second > mx) {
-			mx = x.second;
-			num = x.first;
-		}
-	}
-	int total1 = 0, total2 = 0;
-	for (auto x : a) total1 += abs(x - num);
-
-	int mid = n / 2;
-
-	rep(i, 0, n) total2 += abs(a[i] - a[mid]);
-
-	cout << min(total1, total2) << "\n";
+	cout << total << "\n";
 
 	return 0;
 }

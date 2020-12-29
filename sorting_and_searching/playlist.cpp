@@ -37,11 +37,8 @@ int32_t main() {
 	cin >> n;
 	vi a(n);
 	rep(i, 0, n) cin >> a[i];
-
 	int mx = 0, j = 0;
-
 	map<int, int> fre;
-
 	rep(i, 0, n) {
 		while (j < n && fre[a[j]] < 1) {
 			fre[a[j]]++;

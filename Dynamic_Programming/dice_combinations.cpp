@@ -1,35 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define MOD 1000000007
 
-ll calculate_total_ways(vector<ll>& dp, ll n) {
-	if (n == 0 || n == 1) dp[n] = 1;
-	if (dp[n]) return dp[n];
-	for (ll i = 1; i <= 6; i++) {
-		if (i > n) continue;
-		dp[n] = (dp[n] % MOD + calculate_total_ways(dp, n - i) % MOD) % MOD;
-	}
-	return dp[n] % MOD;
+#define int 				long long
+#define f 					first
+#define s 					second
+#define pb 					push_back
+#define mp 					make_pair
+#define vi 					vector<int>
+#define pii					pair<int, int>
+#define mii					map<int, int>
+#define all(a) 				(a).begin(),(a).end()
+#define sz(x) 				(x).size()
+#define rep(i, a, b) 		for(int i = a; i < b; i++)
+#define pqb					priority_queue<int>
+#define pqs					priority_queue<int, vi, greater<int>>
+#define setbits(x)			__builtin_popcountll(x)
+#define zerobits(x)			__builtin_ctzll(x) // counts number of leading 0's before 1st occurnace of 1
+#define mod 				1000000007
+#define inf					1e18+7
+#define ps(x, y)			fixed << setprecision(y) << x
+#define string_to_int(x)	stoi(x)
+#define int_to_string(x)	to_string(x)
+#define test				int T; cin >> T; while(T--)
+
+void start() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
 }
 
-int main() {
+int total;
+vi dp(2000007);
 
-	ll n;
+int calculate(int n) {
+	if (n == 0) {
+		dp[n] = 1;
+	}
+
+	if (dp[n]) return dp[n];
+
+	rep(i, 1, 7) {
+		if (n - i >= 0) {
+			dp[n] = (dp[n] + calculate(n - i)) % mod;
+		}
+	}
+	return dp[n];
+}
+
+int32_t main() {
+	start();
+	int n;
 	cin >> n;
-	vector<ll> dp(n + 1, 0);
-	ll total_ways = calculate_total_ways(dp, n);
-	cout << total_ways << "\n";
+	dp[n] = calculate(n);
+	cout << dp[n] % mod << "\n";
 
-	// Iterative Solution
-	// dp[0] = dp[1] = 1;
-	// for (ll i = 2; i <= n; i++) {
-	// 	for (ll j = 1; j <= 6; j++) {
-	// 		if (j > i) continue;
-	// 		dp[i] = (dp[i] % MOD + dp[i - j] % MOD) % MOD;
-	// 	}
-	// }
-	// cout << dp[n] % MOD << "\n";
 
 	return 0;
 }

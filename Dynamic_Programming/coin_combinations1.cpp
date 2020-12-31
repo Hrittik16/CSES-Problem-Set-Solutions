@@ -1,27 +1,57 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define MOD 1000000007
 
-int main() {
-	ll n, x;
+#define int 				long long
+#define f 					first
+#define s 					second
+#define pb 					push_back
+#define mp 					make_pair
+#define vi 					vector<int>
+#define pii					pair<int, int>
+#define mii					map<int, int>
+#define all(a) 				(a).begin(),(a).end()
+#define sz(x) 				(x).size()
+#define rep(i, a, b) 		for(int i = a; i < b; i++)
+#define pqb					priority_queue<int>
+#define pqs					priority_queue<int, vi, greater<int>>
+#define setbits(x)			__builtin_popcountll(x)
+#define zerobits(x)			__builtin_ctzll(x) // counts number of leading 0's before 1st occurnace of 1
+#define mod 				1000000007
+#define inf					1e18+7
+#define ps(x, y)			fixed << setprecision(y) << x
+#define string_to_int(x)	stoi(x)
+#define int_to_string(x)	to_string(x)
+#define test				int T; cin >> T; while(T--)
+
+void start() {
+	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
+}
+
+int total;
+vi dp(2000007);
+
+int32_t main() {
+	start();
+	int n, x;
 	cin >> n >> x;
-	vector<ll> a(n);
-	vector<ll> dp(x + 1, 0);
-	for (ll i = 0; i < n; i++) {
-		cin >> a[i];
-	}
+	vi a(n);
+	rep(i, 0, n) cin >> a[i];
 
 	dp[0] = 1;
 
-	for (ll i = 1; i <= x; i++) {
-		for (ll j = 0; j < n; j++) {
-			if (a[j] > i) continue;
-			dp[i] = (dp[i] + dp[i - a[j]]) % MOD;
+	rep(i, 1, x + 1) {
+		rep(j, 0, n) {
+			if (i - a[j] >= 0 && dp[i - a[j]] != 0) {
+				dp[i] = (dp[i] + dp[i - a[j]]) % mod;
+			}
 		}
 	}
 
-	cout << dp[x] % MOD << "\n";
+	cout << dp[x] % mod << "\n";
 
 	return 0;
 }

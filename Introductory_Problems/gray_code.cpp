@@ -14,19 +14,18 @@ int hamming_dist(int a, int b) {
 }
 
 void print(int a, int n) {
-	int temp1 = a;
-	string s;
-	stack<int> st1;
-	while (temp1) {
-		st1.push(temp1 & 1);
-		temp1 >>= 1;
+	stack<int> digits;
+	while (a > 0) {
+		digits.push(a & 1);
+		a >>= 1;
 	}
-	rep(i, 0, n - st1.size()) s += "0";
-	while (!st1.empty()) {
-		s += st1.top() + '0';
-		st1.pop();
+	for (int i = 0; i < n - digits.size(); i++)
+		cout << "0";
+	while (!digits.empty()) {
+		cout << digits.top();
+		digits.pop();
 	}
-	cout << s << "\n";
+	cout << "\n";
 }
 
 int32_t main() {
@@ -55,7 +54,9 @@ int32_t main() {
 		if (x == j) j++;
 	}
 
-	for (auto x : v) print(x, n);
+	for (auto x : v) {
+		print(x, n);
+	}
 
 	return 0;
 }

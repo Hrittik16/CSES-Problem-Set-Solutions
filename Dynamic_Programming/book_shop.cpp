@@ -31,20 +31,40 @@ void start() {
 #endif
 }
 
+const int N = 1e5 + 7;
+
+int dp[1007][N];
+vi h(N), s(N);
+
+// This is the recursive solution but it gives time limit exceeded
+
+int calculate(int n, int p, int x) {
+	if (n < 0 || x == 0) return 0;
+
+	if (dp[n][x])
+		return dp[n][x];
+	if (h[n] <= x)
+		dp[n][x] = max(s[n] + calculate(n - 1, p + s[n], x - h[n]), calculate(n - 1, p, x));
+	else
+		dp[n][x] = calculate(n - 1, p, x);
+	return dp[n][x];
+}
+
 int32_t main() {
 
 	start();
 
 	int n, x;
 	cin >> n >> x;
-	vi h(n), s(n);
 	rep(i, 0, n) {
 		cin >> h[i];
 	}
 	rep(i, 0, n) {
 		cin >> s[i];
 	}
+	int ans = calculate(n - 1, 0, x);
 
+	cout << ans << "\n";
 
 	return 0;
 }

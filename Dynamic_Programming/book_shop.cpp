@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int 				long long
+//#define int 				long long
 #define f 					first
 #define s 					second
 #define pb 					push_back
@@ -21,7 +21,6 @@ using namespace std;
 #define ps(x, y)			fixed << setprecision(y) << x
 #define string_to_int(x)	stoi(x)
 #define int_to_string(x)	to_string(x)
-#define test				int T; cin >> T; while(T--)
 
 void start() {
 	ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -31,40 +30,35 @@ void start() {
 #endif
 }
 
-const int N = 1e5 + 7;
-
-int dp[1007][N];
-vi h(N), s(N);
-
-// This is the recursive solution but it gives time limit exceeded
-
-int calculate(int n, int p, int x) {
-	if (n < 0 || x == 0) return 0;
-
-	if (dp[n][x])
-		return dp[n][x];
-	if (h[n] <= x)
-		dp[n][x] = max(s[n] + calculate(n - 1, p + s[n], x - h[n]), calculate(n - 1, p, x));
-	else
-		dp[n][x] = calculate(n - 1, p, x);
-	return dp[n][x];
-}
-
 int32_t main() {
 
 	start();
 
 	int n, x;
 	cin >> n >> x;
+	vi h(n), s(n);
 	rep(i, 0, n) {
 		cin >> h[i];
 	}
 	rep(i, 0, n) {
 		cin >> s[i];
 	}
-	int ans = calculate(n - 1, 0, x);
 
-	cout << ans << "\n";
+	vector<vector<int>> dp(n + 1, vector<int>(x + 1, 0));
+
+	rep(i, 0, n + 1) {
+		rep(j, 0, x + 1) {
+			if (i == 0 || j == 0)
+				dp[i][j] = 0;
+			else if (h[i - 1] > j)
+				dp[i][j] = dp[i - 1][j];
+			else
+				dp[i][j] = max(dp[i - 1][j], s[i - 1] + dp[i - 1][j - h[i - 1]]);
+		}
+	}
+
+	cout << dp[n][x] << "\n";
+
 
 	return 0;
 }

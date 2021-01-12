@@ -30,45 +30,15 @@ void start() {
 #endif
 }
 
-char grid[1007][1007];
-bool vis[1007][1007];
-int n, m;
-
-void dfs(int i, int j) {
-	vis[i][j] = 1;
-	for (auto x : { -1, 1}) {
-		if (i + x >= 0 && i + x < n && !vis[i + x][j] && grid[i + x][j] != '#') {
-			dfs(i + x, j);
-		}
-		if (j + x >= 0 && j + x < m && !vis[i][j + x] && grid[i][j + x] != '#') {
-			dfs(i, j + x);
-		}
-	}
-}
-
 int32_t main() {
 
 	start();
 
-	cin >> n >> m;
-	rep(i, 0, n) {
-		rep(j, 0, m) {
-			cin >> grid[i][j];
-		}
-	}
 
-	int count = 0;
 
-	rep(i, 0, n) {
-		rep(j, 0, m) {
-			if (grid[i][j] == '.' && !vis[i][j]) {
-				count++;
-				dfs(i, j);
-			}
-		}
-	}
 
-	cout << count << "\n";
+
+
 
 	return 0;
 }

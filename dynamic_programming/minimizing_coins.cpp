@@ -17,11 +17,14 @@ void solve() {
 	int n, x;
 	cin >> n >> x;
 	vi coins(n);
-	rep(i, 0, n) cin >> coins[i];
-	sort(coins.begin(), coins.end());
 	memset(dp, -1, sizeof(dp));
-	dp[0] = 0;
+	rep(i, 0, n) {
+		cin >> coins[i];
+		dp[coins[i]] = 1;
+	}
+	sort(all(coins));
 	rep(i, 1, x + 1) {
+		if (dp[i] == 1) continue;
 		rep(j, 0, n) {
 			if (coins[j] > i) break;
 			if (dp[i - coins[j]] == -1) continue;
@@ -29,6 +32,7 @@ void solve() {
 			else dp[i] = min(dp[i], 1 + dp[i - coins[j]]);
 		}
 	}
+
 	cout << dp[x] << "\n";
 }
 

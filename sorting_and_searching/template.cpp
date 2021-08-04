@@ -7,6 +7,8 @@ using namespace std;
 #define mp make_pair
 #define rep(i, a, b) for(int i = a; i < b; i++)
 #define all(x) (x).begin(), (x).end()
+#define f first
+#define s second
 
 int32_t main() {
 

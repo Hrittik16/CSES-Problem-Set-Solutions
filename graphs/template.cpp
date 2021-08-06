@@ -13,7 +13,7 @@ using namespace std;
 
 struct Edge {
 	int src, dest;
-}
+};
 
 class Graph {
 public:
@@ -27,9 +27,41 @@ public:
 			}
 		}
 	}
+};
+
+void bfs(Graph const &graph, int beg, vector<bool>& check) {
+	check[beg] = 1;
+	queue<int> q;
+	q.push(beg);
+	while(!q.empty()) {
+		int curr = q.front();
+		q.pop();
+		for(auto &x: graph.adjList[curr]) {
+			if(!check[x]) {
+				check[x] = 1;
+				q.push(x);
+			}
+		}
+	}
+}
+
+void dfs(Graph const &graph, int beg, vector<bool>& check) {
+	check[beg] = 1;
+	for(auto &x: graph.adjList[beg]) {
+		if(!check[x]) {
+			dfs(graph, x, check);
+		}
+	}
 }
 
 int32_t main() {
-	// vector<Edge> edges = {{a, b}, {c, d}};
-	// Graph graph(edges, N);
+	// int N = 6;  ->  Max size of nodes
+	// vector<Edge> edges = {{1, 2}, {2, 3}, {3, 4}, {4, 2}, {2, 5}};
+	// Graph graph(edges, N);  ->  Construct the graph
+	// vector<bool> check(2*N, 0);  ->  check if a node has been visited
+	// //bfs(graph, 1, check);  ->  breadth first search
+	//dfs(graph, 1, check);  ->  depth first search
+
+
+
 }

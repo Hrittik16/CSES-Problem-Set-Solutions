@@ -1,13 +1,23 @@
 #include <bits/stdc++.h>
-
-int main() {
+using namespace std;
+ 
+#define int long long int
+#define f first
+#define s second
+#define pb push_back
+#define all(x) x.begin(), x.end()
+#define vi vector<int>
+#define rep(i, a, b) for(int i = a; i < b; i++)
+ 
+int32_t main() {
 	int n;
-	std::cin >> n;
-	std::set<int> unique_nums;
-	for(int i = 0; i < n; i++) {
-		int item;
-		std::cin >> item;
-		unique_nums.insert(item);
+	cin >> n;
+	set<int> unique;
+	rep(i, 0, n) {
+		int input;
+		cin >> input;
+		unique.insert(input);
 	}
-	std::cout << unique_nums.size() << "\n";
+	cout << unique.size() << "\n";
+	return 0;
 }

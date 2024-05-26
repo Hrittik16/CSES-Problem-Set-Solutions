@@ -13,20 +13,16 @@ int32_t main() {
 	int n;
 	cin >> n;
 	vi a(n);
-	rep(i, 0, n) cin >> a[i];
+	map<int, int> mp;
+	rep(i, 0, n) {cin >> a[i]; mp[a[i]] = i;}
 	// Test Cases
 	// 6
 	// 6 1 3 2 5 4 
-	set<int> st;
-	st.insert(a[0]);
-	rep(i, 1, n) {
-		auto it = st.find(a[i]-1);
-		if(it != st.end()) {
-			st.erase(it);
-			st.insert(a[i]);
-		}
-		else st.insert(a[i]);
+	int count = 1, prev = mp[1];
+	for(auto x: mp) {
+		if(x.s < prev) count++;
+		prev = x.s;
 	}
-	cout << st.size() << "\n";
+	cout << count << "\n";
 	return 0;
 }
